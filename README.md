@@ -45,7 +45,7 @@ kubito/
 
 ### Prerequisites
 - Node.js (v18+)
-- npm or yarn
+- pnpm (v8+) - Install with `npm install -g pnpm`
 - Supabase account
 
 ### 1. Clone the Repository
@@ -62,10 +62,10 @@ cd kubito
 ### 3. Backend Setup
 ```bash
 cd backend
-npm install
+pnpm install
 cp .env.example .env
 # Edit .env with your Supabase credentials
-npm run dev
+pnpm dev
 ```
 
 Backend runs on `http://localhost:3001`
@@ -73,10 +73,10 @@ Backend runs on `http://localhost:3001`
 ### 4. Frontend Setup
 ```bash
 cd frontend
-npm install
+pnpm install
 cp .env.example .env
 # Edit .env with your configuration
-npm run dev
+pnpm dev
 ```
 
 Frontend runs on `http://localhost:3000`
@@ -103,14 +103,14 @@ VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ### Frontend
 ```bash
 cd frontend
-npm run build
+pnpm build
 ```
 
 ### Backend
 ```bash
 cd backend
-npm run build
-npm start
+pnpm build
+pnpm start
 ```
 
 ## 🎨 Design

@@ -41,7 +41,7 @@ Kubito is a Pinterest-inspired visual discovery platform for unique and trending
 
 ```bash
 cd backend
-npm install
+pnpm install
 cp .env.example .env
 # Edit .env with your Supabase credentials
 ```
@@ -49,7 +49,7 @@ cp .env.example .env
 ### 3. Frontend Setup
 
 ```bash
-npm install
+pnpm install
 cp .env.example .env
 # Edit .env with your configuration
 ```
@@ -59,12 +59,12 @@ cp .env.example .env
 **Terminal 1 - Backend:**
 ```bash
 cd backend
-npm run dev
+pnpm dev
 ```
 
 **Terminal 2 - Frontend:**
 ```bash
-npm run dev
+pnpm dev
 ```
 
 - Backend: http://localhost:3001
@@ -104,12 +104,12 @@ kubito/
 
 ```bash
 # Frontend
-npm run build
+pnpm build
 
 # Backend
 cd backend
-npm run build
-npm start
+pnpm build
+pnpm start
 ```
 
 ## 🎨 Design

@@ -41,7 +41,7 @@ backend/
 
 1. Install dependencies:
 ```bash
-npm install
+pnpm install
 ```
 
 2. Configure environment:
@@ -56,7 +56,7 @@ cp .env.example .env
 
 4. Start development server:
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Server runs on `http://localhost:3001`
@@ -108,9 +108,9 @@ The API uses JWT-based authentication via Supabase Auth:
 
 ## 📦 Scripts
 
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production
-- `npm start` - Start production server
+- `pnpm dev` - Start development server with hot reload
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
 
 ## 🗄️ Database
 
