@@ -1,22 +1,34 @@
 # Kubito - Visual Discovery Platform
 
-Kubito is a Pinterest-inspired visual discovery platform for unique and trending products. A space where users find inspiration, discover what they want, and connect with their favorite stores.
+A Pinterest-inspired visual discovery platform for unique and trending products built with React, Node.js, and Supabase.
 
 ## 🚀 Tech Stack
 
-### Frontend
-- React 19.1 + Vite 7+ TypeScript
-- Sass (Module SCSS)
-- TanStack Router (File-based routing)
-- TanStack Query (Data fetching)
-- Jotai (State management)
-- Framer Motion (Animations)
-- Radix UI (Accessible components)
-- Axios (HTTP client)
+- **Frontend**: React 19.1, Vite 7, TypeScript, TanStack Router, TanStack Query, Jotai, Framer Motion, Radix UI
+- **Backend**: Node.js, Express, TypeScript
+- **Database & Auth**: Supabase
 
-### Backend
-- Node.js + Express + TypeScript
-- Supabase (Database + Auth)
+## 📁 Project Structure
+
+```
+kubito/
+├── frontend/          # React frontend application
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── config/
+│   │   ├── store/
+│   │   └── styles/
+│   └── package.json
+│
+└── backend/           # Express backend API
+    ├── src/
+    │   ├── controllers/
+    │   ├── routes/
+    │   ├── middleware/
+    │   └── config/
+    └── package.json
+```
 
 ## ✨ Features
 
@@ -25,88 +37,77 @@ Kubito is a Pinterest-inspired visual discovery platform for unique and trending
 - Favorites System
 - User Profiles (View & Edit)
 - Settings Page
-- Subscription Plans
-- Product Promotions
+- Subscription Plans (Free, Premium, Business)
+- Product Promotions System
 - Fully Responsive Design
 
-## 🛠️ Installation
+## 🛠️ Setup & Installation
 
-### 1. Set Up Supabase
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
+- Supabase account
 
-1. Create project at [supabase.com](https://supabase.com)
-2. Run `backend/database-schema.sql` in SQL Editor
-3. Get Project URL and API keys from Settings → API
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd kubito
+```
 
-### 2. Backend Setup
+### 2. Set Up Supabase
+1. Create a new project at [supabase.com](https://supabase.com)
+2. Run the SQL schema from `backend/database-schema.sql` in Supabase SQL Editor
+3. Get your Project URL and API keys from Settings → API
 
+### 3. Backend Setup
 ```bash
 cd backend
 npm install
 cp .env.example .env
 # Edit .env with your Supabase credentials
+npm run dev
 ```
 
-### 3. Frontend Setup
+Backend runs on `http://localhost:3001`
 
+### 4. Frontend Setup
 ```bash
+cd frontend
 npm install
 cp .env.example .env
 # Edit .env with your configuration
-```
-
-## 🚀 Running the App
-
-**Terminal 1 - Backend:**
-```bash
-cd backend
 npm run dev
 ```
 
-**Terminal 2 - Frontend:**
-```bash
-npm run dev
+Frontend runs on `http://localhost:3000`
+
+## 🔌 Environment Variables
+
+### Backend (.env)
+```
+PORT=3001
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_KEY=your_supabase_service_key
 ```
 
-- Backend: http://localhost:3001
-- Frontend: http://localhost:3000
-
-## 📁 Project Structure
-
+### Frontend (.env)
 ```
-kubito/
-├── backend/           # Express API
-│   ├── src/
-│   │   ├── config/    # Supabase config
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── routes/
-│   │   └── types/
-│   └── database-schema.sql
-│
-├── src/              # React frontend
-│   ├── components/   # UI components
-│   ├── config/       # Axios, Supabase
-│   ├── pages/        # Route pages
-│   ├── store/        # Jotai atoms
-│   ├── styles/       # Global styles
-│   └── types/        # TypeScript types
+VITE_API_URL=http://localhost:3001/api
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
-
-## 🔌 Main API Endpoints
-
-- `POST /api/auth/register` - Register
-- `POST /api/auth/login` - Login
-- `GET /api/products` - Get products
-- `GET /api/favorites` - Get favorites
-- `GET /api/promotions` - Get promotions
 
 ## 📦 Building for Production
 
+### Frontend
 ```bash
-# Frontend
+cd frontend
 npm run build
+```
 
-# Backend
+### Backend
+```bash
 cd backend
 npm run build
 npm start
@@ -114,11 +115,26 @@ npm start
 
 ## 🎨 Design
 
-Clean, minimalist design with:
+Clean, minimalist design featuring:
 - Black & White color scheme
 - Inter font family
 - Rounded corners & soft shadows
-- Smooth animations
+- Smooth animations with Framer Motion
+- Pinterest-inspired masonry grid layout
+
+## 📚 Documentation
+
+For detailed documentation, see:
+- [Frontend README](./frontend/README.md)
+- [Backend API Documentation](./backend/README.md)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+ISC
 
 ---
 
