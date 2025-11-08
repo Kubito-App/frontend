@@ -1,4 +1,5 @@
 import type { User } from '@/types'
+import type { ProductList } from '@/types/product.types'
 import { atom } from 'jotai'
 
 const token = localStorage.getItem('auth_token')
@@ -8,10 +9,8 @@ export const userAtom = atom<User | null>(null)
 export const isAuthenticatedAtom = atom<boolean>(false)
 export const sessionLoadingAtom = atom<boolean>(!!token)
 
-// UI state
-export const isSidebarOpenAtom = atom<boolean>(false)
-export const searchQueryAtom = atom<string>('')
-export const selectedCategoryAtom = atom<string | null>(null)
+// User Products
+export const myProductsAtom = atom<ProductList>([])
 
 // Toast state
 export interface Toast {

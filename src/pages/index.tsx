@@ -72,7 +72,7 @@ function HomePage() {
     },
   })
 
-  const categories = ['All', 'Fashion', 'Home', 'Electronics', 'Art', 'Beauty']
+  const categories = ['All', 'Fashion', 'Home', 'Music', 'Electronics', 'Art', 'Beauty']
 
   return (
     <div className={styles.container}>

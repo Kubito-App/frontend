@@ -1,7 +1,7 @@
-import type { Product } from '@/types/product.types'
+import type { ProductList } from '@/types/product.types'
 import { atom } from 'jotai'
 
-export const productsAtom = atom<Array<Product>>([])
+export const productsAtom = atom<ProductList>([])
 
 export let filters = {
   search: '',

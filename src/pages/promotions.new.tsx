@@ -3,7 +3,7 @@ import { Input } from '@/components/Input'
 import { api } from '@/config/axios'
 import { WithAuthentication } from '@/hocs/with-authentication'
 import { useToast } from '@/hooks/use-toast'
-import type { Product } from '@/types/product.types'
+import type { ProductList } from '@/types/product.types'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import dayjs from 'dayjs'
@@ -37,7 +37,7 @@ function Component() {
 
   const { data: productsData } = useQuery({
     queryKey: ['userProducts', userId],
-    queryFn: async (): Promise<Array<Product>> => {
+    queryFn: async (): Promise<ProductList> => {
       const { data } = await api.get(`/products/user/${userId}`)
       return data.products
     },

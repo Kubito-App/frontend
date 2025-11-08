@@ -26,3 +26,5 @@ export interface ProductPayload {
   store_url?: string
   price?: number
 }
+
+export type ProductList = Array<Product>

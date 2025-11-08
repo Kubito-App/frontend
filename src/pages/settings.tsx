@@ -7,7 +7,7 @@ import { userAtom } from '@/store/atoms'
 import type { EditUserPayload } from '@/types'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
-import { useAtomValue } from 'jotai'
+import { useAtom } from 'jotai'
 import { motion } from 'motion/react'
 import { useState } from 'react'
 import styles from './settings.module.scss'
@@ -33,7 +33,7 @@ const OPTIONS: Array<IOption> = [{ title: 'Edit Profile' }]
 function Component() {
   const queryClient = useQueryClient()
   const { toast } = useToast()
-  const user = useAtomValue(userAtom)
+  const [user, setUser] = useAtom(userAtom)
 
   const [username, setUsername] = useState(user?.username || '')
   const [bio, setBio] = useState(user?.bio || '')
@@ -42,11 +42,12 @@ function Component() {
   const updateMutation = useMutation({
     mutationFn: async (payload: EditUserPayload) => {
       const { data } = await api.put('/users/profile', payload)
-      return data
+      return data.user
     },
-    onSuccess: () => {
+    onSuccess: data => {
       queryClient.invalidateQueries({ queryKey: ['user'] })
       toast('Profile updated successfully', undefined, 'success')
+      setUser(data)
     },
     onError: () => {
       toast('Failed to update profile', undefined, 'error')

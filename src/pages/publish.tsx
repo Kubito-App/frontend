@@ -1,6 +1,7 @@
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { Textarea } from '@/components/Textarea'
+import { ImageInput } from '@/components/image-input'
 import { api } from '@/config/axios'
 import { WithAuthentication } from '@/hocs/with-authentication'
 import { useToast } from '@/hooks/use-toast'
@@ -27,6 +28,7 @@ function Component() {
   const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const [tagInput, setTagInput] = useState('')
+  const [imageFile, setImageFile] = useState<File | null>(null)
 
   const [formData, setFormData] = useState<ProductPayload>({
     title: '',
@@ -72,22 +74,34 @@ function Component() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!imageFile) {
+      toast('Image required', 'Please select an image for your product', 'error')
+      return
+    }
+
     setIsLoading(true)
 
     try {
-      // Clean up payload - remove empty optional fields
-      const payload: ProductPayload = {
-        title: formData.title,
-        image_url: formData.image_url,
+      const payload = new FormData()
+      payload.append('title', formData.title)
+      payload.append('image', imageFile)
+
+      if (formData.description) payload.append('description', formData.description)
+      if (formData.category) payload.append('category', formData.category)
+      if (formData.tags && formData.tags.length > 0) {
+        formData.tags.forEach(tag => payload.append('tags[]', tag))
+      }
+      if (formData.store_url) payload.append('store_url', formData.store_url)
+      if (formData.price !== undefined && formData.price > 0) {
+        payload.append('price', formData.price.toString())
       }
 
-      if (formData.description) payload.description = formData.description
-      if (formData.category) payload.category = formData.category
-      if (formData.tags && formData.tags.length > 0) payload.tags = formData.tags
-      if (formData.store_url) payload.store_url = formData.store_url
-      if (formData.price !== undefined && formData.price > 0) payload.price = formData.price
-
-      const { data } = await api.post('/products', payload)
+      const { data } = await api.post('/products', payload, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       if (data.error) throw Error('Error creating product')
 
       toast('Product published!', 'Your product has been published successfully', 'success')
@@ -139,14 +153,10 @@ function Component() {
             rows={4}
           />
 
-          <Input
-            type='url'
-            name='image_url'
-            label='Image URL'
-            placeholder='https://example.com/image.jpg'
-            value={formData.image_url}
-            onChange={handleInputChange}
-            required
+          <ImageInput
+            label='Product Image'
+            value={imageFile}
+            onChange={setImageFile}
             fullWidth
           />
 
