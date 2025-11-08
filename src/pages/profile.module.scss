@@ -21,30 +21,9 @@
   }
 }
 
-.avatarSection {
-  flex-shrink: 0;
-}
-
 .avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: var(--radius-full);
-  object-fit: cover;
-  box-shadow: var(--shadow-md);
-}
-
-.avatarPlaceholder {
-  width: 120px;
-  height: 120px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-black);
-  color: var(--color-white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  font-weight: 700;
-  box-shadow: var(--shadow-md);
+  height: 120px !important;
+  font-size: 3.5rem;
 }
 
 .info {

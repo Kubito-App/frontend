@@ -1,10 +1,11 @@
+import { Avatar } from '@/components/avatar'
 import { Button } from '@/components/Button'
 import { ProductCard } from '@/components/ProductCard'
 import { api } from '@/config/axios'
 import { userAtom } from '@/store/atoms'
 import type { Product } from '@/types/product.types'
 import { useQuery } from '@tanstack/react-query'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useAtomValue } from 'jotai'
 import { motion } from 'motion/react'
 import styles from './profile.module.scss'
@@ -29,8 +30,6 @@ function ProfilePage() {
 
   const products = userProducts || []
 
-  console.log('products: ', products)
-
   return (
     <div className={styles.container}>
       <motion.div
@@ -38,19 +37,10 @@ function ProfilePage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div className={styles.avatarSection}>
-          {user?.avatar_url ? (
-            <img
-              src={user.avatar_url}
-              alt={user.username}
-              className={styles.avatar}
-            />
-          ) : (
-            <div className={styles.avatarPlaceholder}>
-              {user?.username?.[0]?.toUpperCase() || 'U'}
-            </div>
-          )}
-        </div>
+        <Avatar
+          user={user}
+          className={styles.avatar}
+        />
 
         <div className={styles.info}>
           <h1 className={styles.username}>{user?.username || 'User'}</h1>
@@ -64,12 +54,9 @@ function ProfilePage() {
         </div>
 
         {isOwnProfile && (
-          <Button
-            variant='outline'
-            onClick={() => (window.location.href = '/settings')}
-          >
-            Edit Profile
-          </Button>
+          <Link to='/settings'>
+            <Button variant='outline'>Edit Profile</Button>
+          </Link>
         )}
       </motion.div>
 

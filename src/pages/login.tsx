@@ -4,7 +4,7 @@ import { api } from '@/config/axios'
 import { WithAuthentication } from '@/hocs/with-authentication'
 import { useToast } from '@/hooks/use-toast'
 import { isAuthenticatedAtom, userAtom } from '@/store/atoms'
-import { ensureError } from '@/utils/helpers'
+import { ensureError, getUserInfo } from '@/utils/helpers'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { AxiosError } from 'axios'
 import { useSetAtom } from 'jotai'
@@ -38,10 +38,11 @@ function Component() {
     setIsLoading(true)
 
     try {
-      const response = await api.post('/auth/login', { email, password })
-      const { session, user } = response.data
+      const { data } = await api.post('/auth/login', { email, password })
+      const { session, user: _user } = data
 
       if (session?.access_token) {
+        const user = getUserInfo(_user)
         localStorage.setItem('auth_token', session.access_token)
         localStorage.setItem('user', JSON.stringify(user))
         setUser(user)

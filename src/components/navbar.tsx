@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from '@tanstack/react-router'
 import { useAtom } from 'jotai'
 import { Button } from './Button'
 import styles from './navbar.module.scss'
+import { Avatar } from './avatar'
 
 export function Navbar() {
   const [user, setUser] = useAtom(userAtom)
@@ -80,19 +81,11 @@ export function Navbar() {
 
               <DropdownMenu.Root>
                 <DropdownMenu.Trigger asChild>
-                  <button className={styles.profileButton}>
-                    {user?.avatar_url ? (
-                      <img
-                        src={user.avatar_url}
-                        alt={user.username || 'User'}
-                        className={styles.avatar}
-                      />
-                    ) : (
-                      <div className={styles.avatarPlaceholder}>
-                        {user?.email?.[0]?.toUpperCase() || 'U'}
-                      </div>
-                    )}
-                  </button>
+                  <Avatar
+                    user={user}
+                    className={styles.profileButton}
+                    placeholderProps={{ className: styles.avatarPlaceholder }}
+                  />
                 </DropdownMenu.Trigger>
 
                 <DropdownMenu.Portal>

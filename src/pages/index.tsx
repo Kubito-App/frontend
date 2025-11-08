@@ -2,11 +2,14 @@ import { Input } from '@/components/Input'
 import { ProductCard } from '@/components/ProductCard'
 import Spinner from '@/components/spinner'
 import { api } from '@/config/axios'
+import { useDebounce } from '@/hooks/use-debounce'
 import { useToast } from '@/hooks/use-toast'
-import type { Product } from '@/types/product.types'
+import { filters, productsAtom, updateFilters } from '@/store/feed.atoms'
+import { cn } from '@/utils/cn'
 import { isValidArray } from '@/utils/validations'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
+import { useAtom } from 'jotai'
 import { motion } from 'motion/react'
 import { useState } from 'react'
 import styles from './index.module.scss'
@@ -16,23 +19,44 @@ export const Route = createFileRoute('/')({
 })
 
 function HomePage() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [products, setProducts] = useAtom(productsAtom)
+
+  const [searchQuery, setSearchQuery] = useState(filters.search)
+  const [selectedCategory, setSelectedCategory] = useState<string>(filters.category)
   const queryClient = useQueryClient()
   const { toast } = useToast()
 
-  const { data: products, isLoading } = useQuery({
-    queryKey: ['products', searchQuery, selectedCategory],
-    queryFn: async (): Promise<Array<Product>> => {
-      const params = new URLSearchParams()
-      if (searchQuery) params.append('search', searchQuery)
-      if (selectedCategory) params.append('category', selectedCategory)
-      const { data } = await api.get(`/products?${params.toString()}`)
-      return data.products
-    },
+  const debouncedSearchQuery = useDebounce({
+    value: searchQuery,
+    time: 500,
+    omitFirstRender: true,
   })
 
   const hasProducts = isValidArray(products)
+
+  const { isLoading } = useQuery({
+    queryKey: ['products', debouncedSearchQuery, selectedCategory],
+    queryFn: async () => {
+      const payloadFilters = {
+        ...(debouncedSearchQuery ? { search: debouncedSearchQuery } : {}),
+        ...(selectedCategory ? { category: selectedCategory } : {}),
+      }
+      updateFilters(payloadFilters)
+      const { data } = await api.get('/products', {
+        params: {
+          ...(debouncedSearchQuery ? { search: debouncedSearchQuery } : {}),
+          ...(selectedCategory
+            ? { category: selectedCategory === 'All' ? undefined : selectedCategory }
+            : {}),
+        },
+      })
+      setProducts(data.products)
+    },
+    enabled:
+      !hasProducts ||
+      debouncedSearchQuery !== filters.search ||
+      selectedCategory !== filters.category,
+  })
 
   const favoriteMutation = useMutation({
     mutationFn: async (productId: string) => {
@@ -75,12 +99,11 @@ function HomePage() {
           {categories.map(category => (
             <button
               key={category}
-              className={`${styles.categoryButton} ${
-                (category === 'All' && !selectedCategory) || selectedCategory === category
-                  ? styles.active
-                  : ''
-              }`}
-              onClick={() => setSelectedCategory(category === 'All' ? null : category)}
+              className={cn(
+                styles.categoryButton,
+                selectedCategory === category ? styles.active : ''
+              )}
+              onClick={() => setSelectedCategory(category)}
             >
               {category}
             </button>
