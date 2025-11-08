@@ -1,34 +1,22 @@
 # Kubito - Visual Discovery Platform
 
-A Pinterest-inspired visual discovery platform for unique and trending products built with React, Node.js, and Supabase.
+Kubito is a Pinterest-inspired visual discovery platform for unique and trending products. A space where users find inspiration, discover what they want, and connect with their favorite stores.
 
 ## 🚀 Tech Stack
 
-- **Frontend**: React 19.1, Vite 7, TypeScript, TanStack Router, TanStack Query, Jotai, Framer Motion, Radix UI
-- **Backend**: Node.js, Express, TypeScript
-- **Database & Auth**: Supabase
+### Frontend
+- React 19.1 + Vite 7+ TypeScript
+- Sass (Module SCSS)
+- TanStack Router (File-based routing)
+- TanStack Query (Data fetching)
+- Jotai (State management)
+- Framer Motion (Animations)
+- Radix UI (Accessible components)
+- Axios (HTTP client)
 
-## 📁 Project Structure
-
-```
-kubito/
-├── frontend/          # React frontend application
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── config/
-│   │   ├── store/
-│   │   └── styles/
-│   └── package.json
-│
-└── backend/           # Express backend API
-    ├── src/
-    │   ├── controllers/
-    │   ├── routes/
-    │   ├── middleware/
-    │   └── config/
-    └── package.json
-```
+### Backend
+- Node.js + Express + TypeScript
+- Supabase (Database + Auth)
 
 ## ✨ Features
 
@@ -37,77 +25,88 @@ kubito/
 - Favorites System
 - User Profiles (View & Edit)
 - Settings Page
-- Subscription Plans (Free, Premium, Business)
-- Product Promotions System
+- Subscription Plans
+- Product Promotions
 - Fully Responsive Design
 
-## 🛠️ Setup & Installation
+## 🛠️ Installation
 
-### Prerequisites
-- Node.js (v18+)
-- pnpm (v8+) - Install with `npm install -g pnpm`
-- Supabase account
+### 1. Set Up Supabase
 
-### 1. Clone the Repository
-```bash
-git clone <repository-url>
-cd kubito
-```
+1. Create project at [supabase.com](https://supabase.com)
+2. Run `backend/database-schema.sql` in SQL Editor
+3. Get Project URL and API keys from Settings → API
 
-### 2. Set Up Supabase
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Run the SQL schema from `backend/database-schema.sql` in Supabase SQL Editor
-3. Get your Project URL and API keys from Settings → API
+### 2. Backend Setup
 
-### 3. Backend Setup
 ```bash
 cd backend
 pnpm install
 cp .env.example .env
 # Edit .env with your Supabase credentials
-pnpm dev
 ```
 
-Backend runs on `http://localhost:3001`
+### 3. Frontend Setup
 
-### 4. Frontend Setup
 ```bash
-cd frontend
 pnpm install
 cp .env.example .env
 # Edit .env with your configuration
+```
+
+## 🚀 Running the App
+
+**Terminal 1 - Backend:**
+```bash
+cd backend
 pnpm dev
 ```
 
-Frontend runs on `http://localhost:3000`
-
-## 🔌 Environment Variables
-
-### Backend (.env)
-```
-PORT=3001
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_KEY=your_supabase_service_key
+**Terminal 2 - Frontend:**
+```bash
+pnpm dev
 ```
 
-### Frontend (.env)
+- Backend: http://localhost:3001
+- Frontend: http://localhost:3000
+
+## 📁 Project Structure
+
 ```
-VITE_API_URL=http://localhost:3001/api
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+kubito/
+├── backend/           # Express API
+│   ├── src/
+│   │   ├── config/    # Supabase config
+│   │   ├── controllers/
+│   │   ├── middleware/
+│   │   ├── routes/
+│   │   └── types/
+│   └── database-schema.sql
+│
+├── src/              # React frontend
+│   ├── components/   # UI components
+│   ├── config/       # Axios, Supabase
+│   ├── pages/        # Route pages
+│   ├── store/        # Jotai atoms
+│   ├── styles/       # Global styles
+│   └── types/        # TypeScript types
 ```
+
+## 🔌 Main API Endpoints
+
+- `POST /api/auth/register` - Register
+- `POST /api/auth/login` - Login
+- `GET /api/products` - Get products
+- `GET /api/favorites` - Get favorites
+- `GET /api/promotions` - Get promotions
 
 ## 📦 Building for Production
 
-### Frontend
 ```bash
-cd frontend
+# Frontend
 pnpm build
-```
 
-### Backend
-```bash
+# Backend
 cd backend
 pnpm build
 pnpm start
@@ -115,26 +114,11 @@ pnpm start
 
 ## 🎨 Design
 
-Clean, minimalist design featuring:
+Clean, minimalist design with:
 - Black & White color scheme
 - Inter font family
 - Rounded corners & soft shadows
-- Smooth animations with Framer Motion
-- Pinterest-inspired masonry grid layout
-
-## 📚 Documentation
-
-For detailed documentation, see:
-- [Frontend README](./frontend/README.md)
-- [Backend API Documentation](./backend/README.md)
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-ISC
+- Smooth animations
 
 ---
 
