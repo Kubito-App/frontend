@@ -149,7 +149,6 @@ function Component() {
             placeholder='Tell us about this product...'
             value={formData.description}
             onChange={handleInputChange}
-            fullWidth
             rows={4}
           />
 
