@@ -104,3 +104,9 @@
   min-height: 60vh;
   gap: var(--spacing-md);
 }
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
