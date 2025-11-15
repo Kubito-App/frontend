@@ -1,3 +1,4 @@
+import { MobileHeader } from '@/components/mobile-header'
 import { Navbar } from '@/components/navbar'
 import { ToastProvider } from '@/components/Toast'
 import { useMobile } from '@/hooks/use-mobile'
@@ -15,7 +16,7 @@ function RootComponent() {
   return (
     <ToastProvider>
       <div className={styles.layout}>
-        {!isMedium && <Navbar />}
+        {isMedium ? <MobileHeader /> : <Navbar />}
         <main>
           <Outlet />
         </main>

@@ -8,9 +8,9 @@ import { cn } from '@/utils/cn'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { Link, useLocation, useNavigate } from '@tanstack/react-router'
 import { useAtom } from 'jotai'
+import { Avatar } from './avatar'
 import { Button } from './Button'
 import styles from './navbar.module.scss'
-import { Avatar } from './avatar'
 
 export function Navbar() {
   const [user, setUser] = useAtom(userAtom)
@@ -29,21 +29,24 @@ export function Navbar() {
     navigate({ to: '/' })
   }
 
-  return (
-    <header className={styles.header}>
-      <div className={styles.container}>
-        <Link
-          to='/'
-          className={styles.logo}
-          style={{ display: !isAuthenticated ? 'inline' : isMedium ? 'none' : 'unset' }}
-        >
-          <h1>Kubito</h1>
-        </Link>
+  const HeaderTag = isMedium ? 'div' : 'header'
 
-        <nav
-          className={styles.nav}
-          style={!isAuthenticated && isMedium ? { flexGrow: 0 } : {}}
-        >
+  if (isAuthRoutes) return null
+
+  return (
+    <HeaderTag className={styles.header}>
+      <div className={styles.container}>
+        {!isMedium && (
+          <Link
+            to='/'
+            className={styles.logo}
+            style={{ display: !isAuthenticated ? 'inline' : isMedium ? 'none' : 'unset' }}
+          >
+            <h1>Kubito</h1>
+          </Link>
+        )}
+
+        <nav className={styles.nav}>
           {isAuthenticated && (
             <>
               <Link
@@ -120,8 +123,8 @@ export function Navbar() {
               </DropdownMenu.Root>
             </>
           )}
-          {!isAuthenticated && !isAuthRoutes && (
-            <div className={styles.authButtons}>
+          {!isAuthenticated && (
+            <>
               <Button
                 variant='ghost'
                 onClick={() => navigate({ to: '/login' })}
@@ -129,10 +132,10 @@ export function Navbar() {
                 Login
               </Button>
               <Button onClick={() => navigate({ to: '/register' })}>Sign Up</Button>
-            </div>
+            </>
           )}
         </nav>
       </div>
-    </header>
+    </HeaderTag>
   )
 }

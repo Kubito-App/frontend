@@ -7,7 +7,6 @@
   background-color: var(--color-white);
   border-bottom: 1px solid var(--color-gray-200);
   backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.95);
 }
 
 .container {
@@ -30,9 +29,6 @@
     font-weight: 700;
     color: var(--color-black);
     margin: 0;
-  }
-  [data-hidden='true'] {
-    display: none;
   }
 }
 
@@ -60,13 +56,6 @@
 
 .active {
   color: var(--color-black);
-}
-
-.authButtons {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  align-self: flex-end;
 }
 
 .profileButton {
@@ -138,6 +127,10 @@
 }
 
 @media only screen and (width <= bp.$md) {
+  .container {
+    justify-content: center;
+  }
+
   .header {
     border-bottom: none;
     border-top: 1px solid var(--color-gray-200);
@@ -146,6 +139,10 @@
   .nav {
     flex-grow: 1;
     justify-content: space-around;
+
+    button {
+      flex-grow: 1;
+    }
   }
 
   .navLink {
